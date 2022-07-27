@@ -1,5 +1,6 @@
 using AA.CommiditesDashboard.Infrastructure;
 using AA.CommoditiesDashboard.APi;
+using AA.CommoditiesDashboard.APi.Shared.ErrorHandler;
 using AA.CommoditiesDashboard.Application;
 using AA.CommoditiesDashboard.Application.RequestHandlers.Dashboard;
 
@@ -19,10 +20,14 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+// global error handler & logging
+app.UseMiddleware(typeof(ErrorHandlerMiddleware));
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

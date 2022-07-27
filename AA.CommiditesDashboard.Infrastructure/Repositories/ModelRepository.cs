@@ -1,11 +1,6 @@
-﻿using AA.CommoditiesDashboard.Application.Domain.Models;
+﻿using AA.CommoditiesDashboard.Application.Shared.Domain.Models;
 using AA.CommoditiesDashboard.Application.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AA.CommiditesDashboard.Infrastructure.Repositories
 {

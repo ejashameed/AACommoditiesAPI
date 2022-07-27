@@ -1,4 +1,4 @@
-﻿using AA.CommoditiesDashboard.Application.Domain.Models;
+﻿using AA.CommoditiesDashboard.Application.Shared.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;

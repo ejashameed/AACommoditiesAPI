@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using AA.CommoditiesDashboard.Application.RequestHandlers.Dashboard;
+using AA.CommoditiesDashboard.Application.Modules.Dashboard.RequestHandlers;
 
 namespace AA.CommoditiesDashboard.Application
 {

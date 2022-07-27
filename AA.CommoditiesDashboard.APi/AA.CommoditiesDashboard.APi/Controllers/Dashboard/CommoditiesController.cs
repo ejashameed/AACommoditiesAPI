@@ -1,5 +1,4 @@
-﻿using AA.CommoditiesDashboard.Application.Interfaces.ReadRepositories;
-using AA.CommoditiesDashboard.Application.Interfaces.Repositories;
+﻿using AA.CommoditiesDashboard.Application.Modules.Dashboard.RequestHandlers;
 using AA.CommoditiesDashboard.Application.RequestHandlers.Dashboard;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -17,22 +16,22 @@ namespace AA.CommoditiesDashboard.APi.Controllers.Dashboard
             GetYearlyPnLRequestHandler yearlyPnlRequestHandler,
             GetCumulativePnLRequestHandler cumulativePnLRequestHandler,
             GetKeyActionsRequestHandler keyActionsRequestHandler,
-            GetYtdPriceTrendsRequestHandler ytdPnLTrendsRequestHandler,
+            GetYtdPriceTrendsRequestHandler getYtdPriceTrendsRequestHandler,
             GetAllCommoditesRequestHandler commoditesRequestHandler
             )
         {
             _getYearlyPnlRequestHandler = yearlyPnlRequestHandler;
             _getCumulativePnLRequestHandler = cumulativePnLRequestHandler;
-            _getKeyActionsRequestHandler = keyActionsRequestHandler;
-            _getYtdPnLTrendsRequestHandler = ytdPnLTrendsRequestHandler;            
-            _getCommoditesRequestHandler = commoditesRequestHandler;            
+            _getKeyActionsRequestHandler = keyActionsRequestHandler;            
+            _getCommoditesRequestHandler = commoditesRequestHandler;   
+            _getYtdPriceTrendsRequestHandler = getYtdPriceTrendsRequestHandler;
         }
 
         [HttpGet]
         [Route("commodities/keymetrics/pnl-ytd")]
         public async Task<IActionResult> GetYearlyPnl()
         {
-            var response = await _getYearlyPnlRequestHandler.Handle();
+            var response = await _getYearlyPnlRequestHandler.Handle(new RequestCommand());
             return new ObjectResult(response);
         }
 
@@ -40,23 +39,24 @@ namespace AA.CommoditiesDashboard.APi.Controllers.Dashboard
         [Route("commodities/keymetrics/pnl-cumulative")]
         public async Task<IActionResult> GetCumulativePnL()
         {
-            var response = await _getCumulativePnLRequestHandler.Handle();
+            var response = await _getCumulativePnLRequestHandler.Handle(new RequestCommand());
             return new ObjectResult(response);
         }
 
         [HttpGet]
-        [Route("commodities/historical/pnl-ytd-trends")]
-        public async Task<IActionResult> GetYtdPnLTrends()
+        [Route("commodities/historical/price-ytd-trends/{year}")]
+        public async Task<IActionResult> GetYtdPriceTrends(int year)
         {
-            //var response = new GetYtdPnLTrendsRequestHandler().Handle();
-            return Ok();
+            
+            var response = await _getYtdPriceTrendsRequestHandler.Handle(new TrendRequestCommand { Year = year});
+            return new ObjectResult(response);
         }
 
         [HttpGet]
         [Route("commodities/historical/keyactions")]
         public async Task<IActionResult> GetKeyActions()
         {
-            var response = await _getKeyActionsRequestHandler.Handle();
+            var response = await _getKeyActionsRequestHandler.Handle(new RequestCommand());
             return new ObjectResult(response);
         }
 
@@ -64,7 +64,7 @@ namespace AA.CommoditiesDashboard.APi.Controllers.Dashboard
         [Route("commodities/ListCommodites")]
         public async Task<IActionResult> GetAllCommodites()
         {
-            var response = await _getCommoditesRequestHandler.Handle();
+            var response = await _getCommoditesRequestHandler.Handle(new RequestCommand());
             return new ObjectResult(response);
         }
        

@@ -1,5 +1,5 @@
-﻿using AA.CommoditiesDashboard.Application.Domain.Models;
-using AA.CommoditiesDashboard.Application.Interfaces.Repositories;
+﻿using AA.CommoditiesDashboard.Application.Shared.Domain.Models;
+using AA.CommoditiesDashboard.Application.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
